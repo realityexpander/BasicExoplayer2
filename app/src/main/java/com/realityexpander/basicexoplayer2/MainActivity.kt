@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
             player = simpleExoPlayer
         }
 
-        val dataSourceFactory = DefaultDataSourceFactory(this, Util.getUserAgent(this, "BasicExoPlayer"))
+        val dataSourceFactory =
+            DefaultDataSourceFactory(this, Util.getUserAgent(this, "BasicExoPlayer"))
         val audioSource = ProgressiveMediaSource.Factory(dataSourceFactory)
             .createMediaSource(MediaItem.fromUri(Uri.parse("https://files.freemusicarchive.org//storage-freemusicarchive-org//tracks//Pwgnnzp2ZsICaklopTbKD24keSTqsptGRvZSmY2J.mp3")))
         simpleExoPlayer?.apply {
@@ -58,7 +59,6 @@ class MainActivity : AppCompatActivity() {
         playerView = findViewById(R.id.playerView)
 
         exoPlayer = ExoPlayer.Builder(this).build()
-        exoPlayer?.playWhenReady = true
         playerView?.player = exoPlayer
         playerView?.controllerShowTimeoutMs = 0 // keep controls visible
 
@@ -70,13 +70,14 @@ class MainActivity : AppCompatActivity() {
                 .createMediaSource(MediaItem.fromUri("https://www.djing.com/tv/28676-04.m3u8"))
 
         // for Progressive (mp3)
-        val mediaSource2 = ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory)
-            .createMediaSource(MediaItem.fromUri("https://files.freemusicarchive.org//storage-freemusicarchive-org//tracks//Pwgnnzp2ZsICaklopTbKD24keSTqsptGRvZSmY2J.mp3"))
+        val mediaSource2 =
+            ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory)
+                .createMediaSource(MediaItem.fromUri("https://files.freemusicarchive.org//storage-freemusicarchive-org//tracks//Pwgnnzp2ZsICaklopTbKD24keSTqsptGRvZSmY2J.mp3"))
 
         exoPlayer?.apply {
             setMediaSource(mediaSource2)
             seekTo(0)
-            playWhenReady = playWhenReady
+            playWhenReady = true
             prepare()
         }
     }
