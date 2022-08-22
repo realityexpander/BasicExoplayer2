@@ -20,6 +20,9 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.util.Util
 import java.net.URL
 
+// More M3U8 links:
+// https://github.com/iptv-restream/channels/blob/master/channels.m3u8
+
 class MainActivity : AppCompatActivity() {
 
     // for 2.13.3
