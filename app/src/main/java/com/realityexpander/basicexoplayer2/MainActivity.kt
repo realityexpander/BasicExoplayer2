@@ -3,6 +3,8 @@ package com.realityexpander.basicexoplayer2
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PowerManager
+import com.google.android.exoplayer2.C.WAKE_MODE_LOCAL
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -58,19 +60,18 @@ class MainActivity : AppCompatActivity() {
         exoPlayer = ExoPlayer.Builder(this).build()
         exoPlayer?.playWhenReady = true
         playerView?.player = exoPlayer
+        playerView?.controllerShowTimeoutMs = 0 // keep controls visible
 
         val defaultHttpDataSourceFactory = DefaultHttpDataSource.Factory()
-        val mediaItem =
-            MediaItem.fromUri("https://files.freemusicarchive.org//storage-freemusicarchive-org//tracks//Pwgnnzp2ZsICaklopTbKD24keSTqsptGRvZSmY2J.mp3")
-//            MediaItem.fromUri("https://www.djing.com/tv/28676-04.m3u8")
 
         // for HLS (m3u8)
         val mediaSource =
-            HlsMediaSource.Factory(defaultHttpDataSourceFactory).createMediaSource(mediaItem)
+            HlsMediaSource.Factory(defaultHttpDataSourceFactory)
+                .createMediaSource(MediaItem.fromUri("https://www.djing.com/tv/28676-04.m3u8"))
 
         // for Progressive (mp3)
         val mediaSource2 = ProgressiveMediaSource.Factory(defaultHttpDataSourceFactory)
-            .createMediaSource(mediaItem)
+            .createMediaSource(MediaItem.fromUri("https://files.freemusicarchive.org//storage-freemusicarchive-org//tracks//Pwgnnzp2ZsICaklopTbKD24keSTqsptGRvZSmY2J.mp3"))
 
         exoPlayer?.apply {
             setMediaSource(mediaSource2)
