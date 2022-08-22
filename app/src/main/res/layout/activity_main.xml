@@ -10,19 +10,21 @@
     <ImageView
             android:layout_width="152dp"
             android:layout_height="140dp"
-            android:colorBackground="@color/colorPrimary"
-            android:src="@android:drawable/ic_media_play"
+            android:src="@drawable/ic_music_note"
             app:layout_constraintBottom_toTopOf="@+id/playerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.329" />
+            app:layout_constraintVertical_bias="0.329"
+            app:tint="@color/white" />
 
-    <com.google.android.exoplayer2.ui.PlayerView
+<!--    <com.google.android.exoplayer2.ui.PlayerView-->
+    <com.google.android.exoplayer2.ui.StyledPlayerView
             android:id="@+id/playerView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
+            app:animation_enabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

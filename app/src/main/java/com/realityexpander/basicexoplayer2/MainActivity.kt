@@ -7,11 +7,13 @@ import android.os.PowerManager
 import com.google.android.exoplayer2.C.WAKE_MODE_LOCAL
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.source.hls.DefaultHlsDataSourceFactory
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.google.android.exoplayer2.upstream.DefaultDataSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
@@ -20,9 +22,12 @@ import java.net.URL
 
 class MainActivity : AppCompatActivity() {
 
+    // for 2.13.3
     var simpleExoPlayer: SimpleExoPlayer? = null
+
+    // for 2.18.1
     var exoPlayer: ExoPlayer? = null
-    var playerView: PlayerView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     // For 'com.google.android.exoplayer:exoplayer:2.13.3'
     fun initPlayer() {
         simpleExoPlayer = SimpleExoPlayer.Builder(this).build()
-        playerView = findViewById(R.id.playerView)
+        val playerView = findViewById<PlayerView>(R.id.playerView)
 
         playerView?.apply {
             controllerShowTimeoutMs = 0
@@ -56,11 +61,19 @@ class MainActivity : AppCompatActivity() {
 
     // for 'com.google.android.exoplayer:exoplayer:2.18.1'
     fun initPlayer2() {
-        playerView = findViewById(R.id.playerView)
+        val playerView = findViewById<StyledPlayerView>(R.id.playerView)
 
         exoPlayer = ExoPlayer.Builder(this).build()
-        playerView?.player = exoPlayer
-        playerView?.controllerShowTimeoutMs = 0 // keep controls visible
+        playerView?.apply {
+            player = exoPlayer
+            controllerShowTimeoutMs = 0 // keep controls visible
+            useController = true // show controls
+            controllerAutoShow = false // show controls automatically
+            controllerHideOnTouch = false // hide controls when touched
+            requestFocus()
+            showController()
+        }
+
 
         val defaultHttpDataSourceFactory = DefaultHttpDataSource.Factory()
 
